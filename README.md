@@ -1,2 +1,2 @@
 # Push_Swap (WIP)
-(WIP) A constrained sorting algorithm: Recursively solved
+A constrained sorting algorithm: Recursively solved
