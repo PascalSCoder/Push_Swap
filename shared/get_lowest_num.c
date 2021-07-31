@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/07 15:46:00 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/17 12:41:37 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/30 00:05:47 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,6 @@ t_node	*node_lowest_state(t_stack *stack, int state)
 		if (node->num.state == state)
 			if (!lowest || lowest->num.mask > node->num.mask)
 				lowest = node;
-		node = node->prev;
-	}
-	return (lowest);
-}
-
-/*
-	Returns the node holding lowest number in t_stack.
-*/
-t_node	*node_lowest(t_stack *stack)
-{
-	t_node	*node;
-	t_node	*lowest;
-
-	lowest = stack->top;
-	if (!lowest)
-		return (0);
-	node = stack->top->prev;
-	while (node)
-	{
-		if (node->num.mask < lowest->num.mask)
-			lowest = node;
 		node = node->prev;
 	}
 	return (lowest);

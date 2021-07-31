@@ -6,43 +6,51 @@
 #    By: pspijkst <pspijkst@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2021/04/23 13:52:33 by pspijkst      #+#    #+#                  #
-#    Updated: 2021/07/15 11:04:36 by pspijkst      ########   odam.nl          #
+#    Updated: 2021/07/31 12:10:21 by pspijkst      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	checker push_swap
+NAME	=	push_swap
+CHECKER	=	checker
+
 PS_DIR	=	src_push_swap/
-PS_SRC	=	$(shell find $(PS_DIR)*.c)
-PS_SRCS	=	$(PS_SRC)#$(addprefix $(PS_DIR), $(PS_SRC))
+PS_C	=	a_to_b_to_a.c\
+			num_comparisons.c\
+			push_swap.c\
+			sort_back.c\
+			sort_simple.c\
+			contains_state.c
+PS_SRC	=	$(addprefix $(PS_DIR), $(PS_C))
 PS_OBJ	=	$(PS_SRC:%.c=%.o)
 
 CK_DIR	=	src_checker/
-CK_SRC	=	$(shell find $(CK_DIR)*.c)# -exec basename {} \;
-CK_SRCS	=	$(CK_SRC)#$(addprefix $(CK_DIR), $(CK_SRC))
+CK_C	=	checker.c
+CK_SRC	=	$(addprefix $(CK_DIR), $(CK_C))
 CK_OBJ	=	$(CK_SRC:%.c=%.o)
+
 CC		=	gcc
-CFLAGS	=	-Wall -Wextra
+CFLAGS	=	-Wall -Wextra -Werror -fsanitize=address
 
-all: push_swap
+make_ps: libshared $(NAME)
 
-push_swap: $(PS_OBJ)
+make_ck: libshared $(CHECKER)
+
+$(NAME): $(PS_SRC) $(PS_OBJ) shared/libshared.a
+	$(CC) $(PS_OBJ) $(CFLAGS) -Lshared/ -lshared -o $(NAME)
+
+$(CHECKER): $(CK_SRC) $(CK_OBJ) shared/libshared.a
+	$(CC) $(CK_OBJ) $(CFLAGS) -Lshared/ -lshared -o $(CHECKER)
+
+libshared:
 	$(MAKE) -C shared/
-	$(CC) $(PS_OBJ) -Lshared/ -lshared -o push_swap
 
-checker: $(CK_OBJ)
-	$(MAKE) -C shared/
-	$(CC) $(CK_SRCS) -Lshared/ -lshared -o checker
+all: make_ps make_ck
 
-src_push_swap/%.o: %.c
-	@echo "compiling push_swap..."
-	@mkdir -p obj
-	@mkdir -p obj/src_push_swap
+$(PS_DIR)/%.o: %.c
 	$(CC) -c $(CFLAGS) -o $@ $<
 
-src_checker/%.o: %.c
-	@mkdir -p obj
-	@mkdir -p obj/src_checker
-	$(CC) -c $(CFLAGS) -o obj/$@ $<
+$(CK_DIR)/%.o: %.c
+	$(CC) -c $(CFLAGS) -o $@ $<
 
 clean:
 	$(MAKE) clean -C shared
@@ -50,8 +58,10 @@ clean:
 	rm -f $(PS_OBJ)
 
 fclean: clean
+	rm -f $(NAME)
+	rm -f $(CHECKER)
 	$(MAKE) -C shared fclean
 
-re: fclean all
+re: fclean $(NAME)
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libshared make_ps make_ck

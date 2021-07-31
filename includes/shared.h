@@ -6,15 +6,15 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/23 15:57:09 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/17 13:09:56 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/30 18:03:24 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SHARED_H
 # define SHARED_H
 
-# include "../../libft/libft.h"
-# include "../../get_next_line/get_next_line.h"
+# include "libft.h"
+# include "get_next_line.h"
 
 # define STATE_OFFSET 10
 # define MIN_DIVIDABLESIZE 6
@@ -23,7 +23,7 @@ typedef enum e_stackid
 {
 	stack_ab = -1,
 	stack_a,
-	stack_b
+	stack_b,
 }	t_stackid;
 
 typedef struct s_state
@@ -58,18 +58,10 @@ typedef struct s_data
 {
 	t_stack	a;
 	t_stack	b;
-	int		divisions;
+	int		is_checker;
 	int		num_c;
-	int		fail_c;
-	int		push_c;
-	int		swap_c;
-	int		rotup_c;
-	int		rotdown_c;
-	int		d_swap_c;
-	int		d_rotup_c;
-	int		d_rotdown_c;
+	t_node	*node_start;
 }	t_data;
-
 
 typedef enum e_bool
 {
@@ -103,10 +95,10 @@ void	print_counters(t_data *data);
 
 t_stack	*get_stack(t_data *data, t_stackid id);
 
-void	stack_swap(t_data *data, t_stackid id);
-void	stack_push(t_data *data, t_stackid id_from);
-void	stack_rotate_down(t_data *data, t_stackid id);
-void	stack_rotate_up(t_data *data, t_stackid id);
+t_bool	stack_push(t_stack *from, t_stack *to);
+t_bool	stack_swap(t_stack *st);
+t_bool	stack_rotate_down(t_stack *st);
+t_bool	stack_rotate_up(t_stack *st);
 
 void	node_push_bot(t_stack *stack, t_node *node);
 void	node_push_top(t_stack *stack, t_node *node);
@@ -114,13 +106,10 @@ t_node	*node_pop_top(t_stack *stack);
 t_node	*node_pop_bot(t_stack *stack);
 
 void	exit_error(void);
-void	exit_error_debug(char *msg); // REMOVE BEFORE PUBLISH
 
-void	instruct(t_instrkey key, t_stackid id, t_data *data);
+void	instruct(char *instr, t_data *data);
 void	write_instr(t_instrkey key, t_stackid id);
 
-t_node	*node_highest(t_stack *stack);
-t_node	*node_lowest(t_stack *stack);
 t_node	*node_highest_state(t_stack *stack, int state);
 t_node	*node_lowest_state(t_stack *stack, int state);
 int		node_count(t_stack *stack);
@@ -132,5 +121,14 @@ void	sort_back(t_data *data, t_stack *st);
 
 t_bool	num_state_isequal(t_num *num1, t_num *num2);
 t_bool	num_ishigher(t_num *num1, t_num *num2);
+
+void	sort_simple(t_data *data, int count);
+
+void	a_to_b(t_data *data, int group);
+void	b_to_a(t_data *data, int group);
+
+t_bool	is_sorted(t_stack *stack);
+
+void	free_nodes(t_stack *st);
 
 #endif

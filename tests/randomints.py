@@ -1,6 +1,6 @@
 import random
 
-number_count = 10000
+number_count = 5
 
 pile = []
 

@@ -6,12 +6,30 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/29 21:57:42 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/04/29 22:40:45 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/30 17:40:09 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shared.h"
 #include <stdlib.h>
+
+static char	check_overflow(char negative, int prev, int new)
+{
+	if (negative)
+	{
+		if (new > prev)
+			return (true);
+		else
+			return (false);
+	}
+	else
+	{
+		if (prev > new)
+			return (true);
+		else
+			return (false);
+	}
+}
 
 static char	cmp_int(char *str, int n)
 {
@@ -32,6 +50,7 @@ static char	cmp_int(char *str, int n)
 char	ft_atoi_strict(char *str, int *out_num)
 {
 	char	negative;
+	int		prev;
 	int		i;
 
 	*out_num = 0;
@@ -46,7 +65,10 @@ char	ft_atoi_strict(char *str, int *out_num)
 		return (false);
 	while (ft_isdigit(str[i]))
 	{
+		prev = *out_num;
 		*out_num = *out_num * 10 + str[i] - '0';
+		if (check_overflow(negative, prev, *out_num) == true)
+			return (false);
 		i++;
 	}
 	if (negative)

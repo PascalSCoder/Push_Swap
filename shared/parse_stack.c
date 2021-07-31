@@ -6,14 +6,12 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/23 13:51:27 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/06/06 16:34:33 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/30 18:02:40 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shared.h"
 #include <stdlib.h>
-
-#include <stdio.h> // debug
 
 static int	strslen(char **strs)
 {
@@ -45,13 +43,13 @@ static int	*parse_ints(int count, char **strs)
 	total_count = count;
 	ints = ft_calloc(count, sizeof(int));
 	if (!ints)
-		exit_error_debug("System error");
+		exit_error();
 	while (count > 0)
 	{
 		if (!ft_atoi_strict(*strs, &tmp))
-			exit_error_debug("Invalid atoi");
+			exit_error();
 		else if (!check_duplicate(ints, tmp, count, total_count))
-			exit_error_debug("Duplicate number");
+			exit_error();
 		count--;
 		strs++;
 		ints[count] = tmp;
@@ -70,7 +68,7 @@ int	*handle_input(int argc, char **argv, t_data *data)
 	{
 		strs = ft_split(argv[1], ' ');
 		if (!strs)
-			exit(0);
+			exit_error();
 		count = strslen(strs);
 		argv = strs;
 	}
@@ -80,7 +78,7 @@ int	*handle_input(int argc, char **argv, t_data *data)
 		argv++;
 	}
 	if (count == 0)
-		exit(0);
+		exit_error();
 	data->num_c = count;
 	ints = parse_ints(count, argv);
 	if (strs)
@@ -96,7 +94,8 @@ void	parse_stack(int argc, char **argv, t_data *data)
 	ints = handle_input(argc, argv, data);
 	nodes = ints_to_nodes(ints, data->num_c);
 	if (!nodes)
-		exit_error_debug("Failed to convert ints to nodes.");
+		exit_error();
+	data->node_start = nodes;
 	data->a.bot = nodes;
 	while (nodes->next)
 		nodes = nodes->next;

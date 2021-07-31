@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   get_stack.c                                        :+:    :+:            */
+/*   ft_memchr.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
+/*   By: pascal <pascal@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2021/06/06 14:48:57 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/06/06 16:44:13 by pspijkst      ########   odam.nl         */
+/*   Created: 2020/10/30 11:47:56 by pascal        #+#    #+#                 */
+/*   Updated: 2021/04/22 12:48:16 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/shared.h"
+#include "libft.h"
 
-t_stack	*get_stack(t_data *data, t_stackid id)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	if (id == stack_a || id == stack_b)
-		return ((t_stack *)data + id);
+	while (n > 0)
+	{
+		if (*(const unsigned char *)s == (unsigned char)c)
+			return ((void *)s);
+		s++;
+		n--;
+	}
 	return (0);
 }

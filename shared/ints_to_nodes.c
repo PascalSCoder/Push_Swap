@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/05/20 12:44:02 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/17 13:28:58 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/30 00:04:29 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-static t_node	*init_nodes(int count)
+static t_node	*st_init_nodes(int count)
 {
 	t_node	*nodes;
-	int	i;
+	int		i;
 
 	nodes = ft_calloc(count, sizeof(t_node));
 	if (!nodes)
@@ -35,7 +35,7 @@ static t_node	*init_nodes(int count)
 	return (nodes);
 }
 
-static void	set_masks(t_node *nodes, int *ints, int count)
+static void	st_set_masks(t_node *nodes, int *ints, int count)
 {
 	int	i;
 	int	j;
@@ -53,8 +53,8 @@ static void	set_masks(t_node *nodes, int *ints, int count)
 				if (ints[i] < nodes[k].num.value)
 					nodes[k].num.mask++;
 				else
-					j++;;
-			} 
+					j++;
+			}
 			k++;
 		}
 		nodes[i].num.mask = j;
@@ -67,10 +67,10 @@ t_node	*ints_to_nodes(int *ints, int count)
 {
 	t_node	*nodes;
 
-	nodes = init_nodes(count);
+	nodes = st_init_nodes(count);
 	if (!nodes)
 		return (0);
-	set_masks(nodes, ints, count);
+	st_set_masks(nodes, ints, count);
 	free(ints);
 	return (nodes);
 }

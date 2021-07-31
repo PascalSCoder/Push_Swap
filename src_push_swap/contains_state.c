@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/07 16:54:12 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/17 13:27:51 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/30 16:57:17 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,18 @@ t_stack	*get_stack_with_state(t_data *data, int state)
 		return (&data->a);
 	else if (data->a.bot && data->a.bot->num.state == state)
 	{
-		// printf("Stack a bottom needs to be moved up.\n");
 		while (data->a.bot->num.state == state)
-			instruct(rotate, stack_a, data);
+			instruct("rra", data);
 		return (&data->a);
 	}
 	else if (data->b.top && data->b.top->num.state == state)
 		return (&data->b);
 	else if (data->b.bot && data->b.bot->num.state == state)
 	{
-		// printf("Stack b bottom needs to be moved up.\n");
 		while (data->b.bot->num.state == state)
-			instruct(rotate, stack_b, data);
+			instruct("rrb", data);
 		return (&data->b);
 	}
 	else
-		return NULL;
+		return (NULL);
 }
