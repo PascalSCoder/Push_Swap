@@ -6,45 +6,19 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/29 21:57:42 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/30 17:40:09 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/31 19:34:54 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/shared.h"
 #include <stdlib.h>
 
-static char	check_overflow(char negative, int prev, int new)
+static char	check_overflow(int prev, int new)
 {
-	if (negative)
-	{
-		if (new > prev)
-			return (true);
-		else
-			return (false);
-	}
-	else
-	{
-		if (prev > new)
-			return (true);
-		else
-			return (false);
-	}
-}
-
-static char	cmp_int(char *str, int n)
-{
-	char	*cmp;
-
-	cmp = ft_itoa(n);
-	if (!cmp)
-		return (false);
-	if (ft_strcmp(str, cmp) == 0)
-	{
-		free(cmp);
+	if (new < prev)
 		return (true);
-	}
-	free(cmp);
-	return (false);
+	else
+		return (false);
 }
 
 char	ft_atoi_strict(char *str, int *out_num)
@@ -67,11 +41,11 @@ char	ft_atoi_strict(char *str, int *out_num)
 	{
 		prev = *out_num;
 		*out_num = *out_num * 10 + str[i] - '0';
-		if (check_overflow(negative, prev, *out_num) == true)
+		if (check_overflow(prev, *out_num) == true)
 			return (false);
 		i++;
 	}
 	if (negative)
 		*out_num *= -1;
-	return (cmp_int(str, *out_num));
+	return (true);
 }

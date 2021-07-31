@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/06 12:45:46 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/31 11:45:02 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/31 19:35:38 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,4 +89,5 @@ int	main(int argc, char **argv)
 			st_divide(&data, 0);
 	}
 	free(data.node_start);
+	return (0);
 }

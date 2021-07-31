@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/06/06 16:20:58 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/30 17:03:01 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/31 19:41:39 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	instruct(char *instr, t_data *data)
 	else if (st_check_instr(instr, data, &is_ok) == false)
 		is_valid = false;
 	if (!is_valid && data->is_checker)
-		exit_error();
+		exit_error(data);
 	if (is_ok && data->is_checker == false)
 		ft_putendl_fd(instr, 1);
 }

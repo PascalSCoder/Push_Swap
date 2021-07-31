@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/23 15:57:09 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/30 18:03:24 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/31 19:39:21 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ void	node_push_top(t_stack *stack, t_node *node);
 t_node	*node_pop_top(t_stack *stack);
 t_node	*node_pop_bot(t_stack *stack);
 
-void	exit_error(void);
+void	exit_error(t_data *data);
 
 void	instruct(char *instr, t_data *data);
 void	write_instr(t_instrkey key, t_stackid id);

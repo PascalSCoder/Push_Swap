@@ -6,7 +6,7 @@
 /*   By: pspijkst <pspijkst@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2021/04/22 16:59:07 by pspijkst      #+#    #+#                 */
-/*   Updated: 2021/07/30 18:06:05 by pspijkst      ########   odam.nl         */
+/*   Updated: 2021/07/31 19:35:47 by pspijkst      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ int	main(int argc, char **argv)
 	else
 		ft_putendl_fd("KO", 1);
 	free(data.node_start);
+	return (0);
 }
