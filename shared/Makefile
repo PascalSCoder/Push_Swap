@@ -6,14 +6,13 @@
 #    By: pascal <pascal@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/11/02 15:18:24 by pascal        #+#    #+#                  #
-#    Updated: 2021/07/31 11:44:12 by pspijkst      ########   odam.nl          #
+#    Updated: 2021/11/19 14:45:58 by pspijkst      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libshared.a
 LIBFT_C		=	ft_abs.c\
 				ft_atof.c\
-				ft_atoi.c\
 				ft_atoi_strict.c\
 				ft_bzero.c\
 				ft_calloc.c\
